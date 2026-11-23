@@ -1,0 +1,334 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,array,longtable}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\floor}[1]{\left\lfloor #1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1\right\rceil}
+\title{Oudra's cubic and quadratic floor conjectures\\
+and an alternative proof of Wu's tetrahedral formula}
+\author{Haobo Ma\\\small ChronoAI Pte Ltd, Singapore
+\and Wenlin Zhang\\\small National University of Singapore\\\small ChronoAI Pte Ltd, Singapore}
+\date{November 14, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Ridouane Oudra's cubic floor conjecture, posed on October 6,
+2023 in the FORMULA field of OEIS A248186, revision 18, and give an
+alternative proof of the tetrahedral counting formula contributed by
+Chai Wah Wu to A056556 on November 4, 2024 and treated in his 2025
+article, Section 4, p.~22. The least positive index $k$ for which
+$1/18-\sum_{h=1}^k[h(h+1)(h+2)(h+3)]^{-1}<n^{-3}$ is
+$\floor{rn+r^2/n-1}$ for $n>2$, where $r=3^{-1/3}$.
+An integer-target cubic inversion also recovers Oudra's earlier
+tetrahedral formula. A congruence argument proves his quadratic
+conjecture in A248183. For both threshold sequences we obtain exact
+jump positions and complementary densities, and for the cubic jumps
+we characterize their deviations from the associated Beatty sequence.
+\end{abstract}
+
+\section{An integer gap and Oudra's cubic conjecture}
+OEIS A248186 was introduced by Clark Kimberling in 2014; its floor
+conjecture is credited to Ridouane Oudra \cite{cubic}. For $n\geq1$, set
+\[
+ R(k)=\frac1{18}-\sum_{h=1}^k\frac1{h(h+1)(h+2)(h+3)},\qquad
+ a(n)=\min\{k\geq1:R(k)<n^{-3}\}.
+\]
+All indices are integers. The minimum is over positive $k$, as in the
+entry's program. The following inversion works for every positive
+integer target, rather than just for perfect cubes.
+
+\begin{lemma}\label{lem:integer}
+Let $Q(x)=3(x^3-x)$. For each integer $M\geq1$, put
+\[
+ t=(M/3)^{1/3},\qquad H(M)=\floor{t+\frac1{3t}}.
+\]
+Then $H(M)$ is the largest positive integer $m$ with $Q(m)\leq M$;
+equivalently,
+\begin{equation}\label{eq:bracket}
+ Q(H(M))\leq M<Q(H(M)+1).
+\end{equation}
+\end{lemma}
+\begin{proof}
+For $y>x\geq1$,
+\[
+ Q(y)-Q(x)=3(y-x)(y^2+xy+x^2-1)>0.
+\]
+Write $b=t+1/(3t)$ and $m=\floor b$. Since
+$b\geq2/\sqrt3>1$, we have $m\geq1$. Expansion gives
+\begin{equation}\label{eq:overshoot}
+ Q(b)=3t^3+\frac1{9t^3}=M+\frac1{3M}.
+\end{equation}
+As $m\leq b<m+1$, monotonicity yields
+$Q(m)\leq M+1/(3M)<M+1$ and $M<Q(m+1)$.
+The integers $Q(m)$ and $M$ therefore satisfy \eqref{eq:bracket}.
+Strict monotonicity proves the maximality assertion.
+\end{proof}
+
+\begin{theorem}\label{thm:cubic}
+The minimum defining $a(n)$ exists for every positive integer $n$.
+We have $a(1)=a(2)=1$ and, with $r=3^{-1/3}$,
+\begin{equation}\label{eq:cubic}
+ a(n)=\floor{rn+\frac{r^2}{n}-1}\qquad(n\geq3).
+\end{equation}
+More generally, at a reciprocal integer target $1/M$, the least
+positive $k$ with $R(k)<1/M$ is $\max\{1,H(M)-1\}$.
+\end{theorem}
+\begin{proof}
+The identity
+\[
+ \frac1{h(h+1)(h+2)(h+3)}
+ =\frac13\left(\frac1{h(h+1)(h+2)}-
+                   \frac1{(h+1)(h+2)(h+3)}\right)
+\]
+telescopes, including at $k=0$, to
+\begin{equation}\label{eq:tail}
+ R(k)=\frac1{3(k+1)(k+2)(k+3)}.
+\end{equation}
+Thus $R(k)\to0$ and $R(k)<1/M$ is equivalent to $M<Q(k+2)$.
+Lemma~\ref{lem:integer} makes the least positive admissible $k$ equal
+to $\max\{1,H(M)-1\}$. For $M=n^3$ and $n\geq3$, $Q(2)=18<n^3$,
+so $H(n^3)\geq2$. In this case $t=rn$ and $1/(3t)=r^2/n$,
+which gives \eqref{eq:cubic}. For $n=1,2$, $R(1)=1/72<n^{-3}$,
+so the positive minimum is $1$.
+\end{proof}
+
+\section{Cubic plateaus, jumps, and the Beatty comparison}
+The COMMENT field of A248186 asserts zero--one increments and a
+partition into the plateau and jump positions, A248187 and A248188
+\cite{cubic,plateaus,jumps}.
+
+\begin{corollary}\label{cor:jumps}
+For every $n\geq1$, $a(n+1)-a(n)\in\{0,1\}$. The plateau positions
+$\{n:a(n+1)=a(n)\}$ and jump positions $\{n:a(n+1)=a(n)+1\}$
+partition the positive integers and have natural densities $1-r$
+and $r$, respectively. The $j$th jump position is
+\begin{equation}\label{eq:jump}
+ c_j=\ceil{\sqrt[3]{3(j+1)(j+2)(j+3)}}-1
+     =\floor{\sqrt[3]{3(j+1)(j+2)(j+3)-1}},\qquad j\geq1.
+\end{equation}
+\end{corollary}
+\begin{proof}
+For $n\geq3$, $b(n)=rn+r^2/n$ satisfies
+\[
+ 0<b(n+1)-b(n)=r-\frac{r^2}{n(n+1)}<r<1.
+\]
+Taking floors proves the increment assertion; the initial cases follow
+from $a(1)=a(2)=a(3)=a(4)=1$. For $j,n\geq1$, \eqref{eq:tail} gives
+\begin{equation}\label{eq:level}
+ a(n)\leq j\quad\Longleftrightarrow\quad
+ n^3<3(j+1)(j+2)(j+3).
+\end{equation}
+Since $a$ is unbounded with zero--one increments and starts at $1$,
+the largest such $n$ is where the value changes from $j$ to $j+1$.
+This proves the ceiling formula. For integer $L>0$, the largest integer
+with cube $<L$ is $\floor{\sqrt[3]{L-1}}$, proving the other formula.
+There are $a(N+1)-1$ jumps in $1,\ldots,N$; \eqref{eq:cubic} gives
+$a(N+1)=r(N+1)+O(1)$. Division by $N$ proves both densities.
+\end{proof}
+
+A248188 records agreement with $\floor{3^{1/3}(j+2)}$ for
+$1\leq j\leq655$ and an exception at $j=656$ \cite{jumps,beatty}.
+It does not assert equality for all $j$.
+
+\begin{corollary}\label{cor:beatty}
+Let $x=j+2$, $u_j=\floor{3^{1/3}x}$ and $L=3(x^3-x)$.
+For every $j\geq1$,
+\begin{equation}\label{eq:correction}
+ c_j=u_j-\boldsymbol{1}_{\{u_j^3\geq L\}},
+\end{equation}
+where $\boldsymbol{1}$ denotes the indicator of the stated condition.
+Thus the discrepancy is always zero or one, with an exact integer test.
+\end{corollary}
+\begin{proof}
+Put $v=3^{1/3}x$ and $w=L^{1/3}$. For $x\geq3$,
+\[
+ (v-1)^3<L<v^3,
+\]
+because $L-(v-1)^3=3v^2-3v-3x+1>0$: here $v>x$ and
+$v(v-1)>x(x-1)\geq2x$. Hence $v-1<w<v$.
+Since $u_j\leq v<u_j+1$ and $v$ is irrational, $w>u_j-1$.
+If $u_j^3<L$, then $u_j<w<u_j+1$ and $c_j=\ceil w-1=u_j$.
+Otherwise $u_j-1<w\leq u_j$ and $c_j=u_j-1$.
+\end{proof}
+
+The integer comparisons in the accompanying program confirm the
+reported range and give $c_{656}=948$, whereas $u_{656}=949$.
+The universal equality $c_j=u_j$ is not asserted in the source;
+it fails at this example. The examples in A248187 and A248188 end
+with a complement-name slip: the complementary pair is A248187 and
+A248188. In fact, $4$ belongs both to the value set of A248186
+($a(8)=4$) and to A248188 ($c_1=4$), so those two sets are not
+complementary.
+
+\section{The quadratic conjecture and both of its siblings}
+A248183, cross-referenced by A248186, contains Oudra's conjecture
+dated September 6, 2023, in its FORMULA field \cite{quadratic}.
+Define, for $n\geq1$,
+\[
+ d(n)=\min\left\{k\geq1:\frac14-
+ \sum_{h=1}^k\frac1{h(h+1)(h+2)}<n^{-2}\right\}.
+\]
+\begin{corollary}\label{cor:quadratic}
+The minimum exists, $d(1)=1$, and
+\begin{equation}\label{eq:quadratic}
+ d(n)=\floor{\sqrt{n^2/2+1}-\frac12}\qquad(n\geq2).
+\end{equation}
+The plateau and jump positions, A248184 and A248185, partition the
+positive integers with respective densities $1-1/\sqrt2$ and
+$1/\sqrt2$. The $j$th jump position is
+\begin{equation}\label{eq:quadraticjump}
+ e_j=\ceil{\sqrt{2(j+1)(j+2)}}-1
+     =\floor{\sqrt{2(j+1)(j+2)-1}},\qquad j\geq1.
+\end{equation}
+\end{corollary}
+\begin{proof}
+Telescoping gives residual $1/[2(k+1)(k+2)]$, tending to zero.
+Admissibility is $n^2<P(k+1)$, where $P(x)=2x(x+1)$.
+For $n\geq2$, set $b=\sqrt{n^2/2+1}-1/2>1$ and $m=\floor b$.
+Then $P(b)=n^2+3/2$ and $P(m)\leq P(b)<P(m+1)$.
+For integer $m$, $P(m)$ is divisible by $4$, while $n^2$ is
+$0$ or $1$ modulo $4$. A positive difference $P(m)-n^2$ would
+therefore be at least $3$, contradicting $P(m)\leq n^2+3/2$.
+It follows that $P(m)\leq n^2<P(m+1)$, so the least admissible
+positive $k$ is $m$. At $n=1$ the residual for $k=1$ is $1/12<1$.
+
+For $f(x)=\sqrt{x^2/2+1}-1/2$ and $x>0$,
+$0<f'(x)=x/(2\sqrt{x^2/2+1})<1/\sqrt2<1$.
+Thus the floors in \eqref{eq:quadratic} have zero--one increments
+for $n\geq2$; $d(1)=d(2)=d(3)=1$ handles the boundary.
+For positive $j,n$,
+\[
+ d(n)\leq j\quad\Longleftrightarrow\quad n^2<2(j+1)(j+2).
+\]
+The largest such $n$ is the $j$th jump position, giving
+\eqref{eq:quadraticjump} exactly as in \eqref{eq:jump}.
+There are $d(N+1)-1$ jumps up to $N$, and
+$d(N+1)=(N+1)/\sqrt2+O(1)$, proving the densities.
+\end{proof}
+
+The NAME fields of A248184 and A248185 are precisely these two
+position sets \cite{quadraticpositions}. In A248184's COMMENT,
+the final complement name should be A248184, as correctly stated in
+A248185's example: the nonempty set A248185 is not its own complement.
+
+\section{Earlier tetrahedral formulas and verification scope}
+Let $T(N)$ be A056556: each integer $m\geq0$ occurs
+$(m+1)(m+2)/2$ times, starting at $N=0$. Then $T(N)$ is the
+largest $m$ with $\binom{m+2}{3}\leq N$. Oudra supplied a radical
+formula in 2021 and the simpler expression below in 2022;
+Wu supplied the integer-root alternative in 2024 \cite{tetrahedral}.
+Wu's general repeated-term treatment appears in his preprint and
+published article \cite[Section 4, p.~22]{wu}. These are prior
+counting results, not proofs of the two threshold conjectures.
+
+\begin{corollary}\label{cor:tetrahedral}
+For $N\geq1$, with $s=(6N)^{1/3}$ and $z=\floor{(6N+6)^{1/3}}$,
+\[
+ T(N)=\floor{s+\frac1{3s}-1}
+ =\begin{cases}
+ z,&N\geq\binom{z+2}{3},\\
+ z-1,&N<\binom{z+2}{3}.
+ \end{cases}
+\]
+Also $T(0)=0$.
+\end{corollary}
+\begin{proof}
+Writing $x=m+1$ turns $\binom{m+2}{3}\leq N$ into
+$Q(x)\leq18N$. Lemma~\ref{lem:integer} therefore gives
+$T(N)=H(18N)-1$, which is the first formula.
+If $l=T(N)$, then
+\[
+ l^3\leq l(l+1)(l+2)\leq6N<6(N+1)
+ \leq(l+1)(l+2)(l+3)<(l+2)^3.
+\]
+The penultimate inequality holds because the two bounding products
+are multiples of $6$. Hence $l\leq z\leq l+1$; the test
+$\binom{z+2}{3}\leq N$ distinguishes these two cases.
+\end{proof}
+
+A074279, in which $m$ occurs $m^2$ times, is another related
+inverse-counting example: Oudra gave a reciprocal-correction formula
+in 2023 and Wu proved an integer-root alternative
+\cite{squareblocks,wu}. Those formulas are existing results rather
+than additional threshold conjectures. The divisibility question
+A248189, linked from A248187, concerns $mn\mid\sigma(m^2+n^2)$,
+where $\sigma$ is the divisor-sum function. The reciprocal-product
+argument gives no conclusion about that question \cite{unrelated}.
+
+\begin{sloppypar}
+The pinned Lean source is
+\href{https://github.com/the-omega-institute/trureturing/blob/f1c20718fca66e9ef0a4cb5f4f6a9a55badd1ab5/D5/S3/ArithSums/OudraA248186CubicFloor.lean}{\texttt{OudraA248186CubicFloor.lean}}.
+In namespace \texttt{D5.S3.ArithSums}, the declaration
+\texttt{OudraA248186CubicFloor.}\allowbreak\texttt{result}
+proves existence of a
+natural-valued sequence of least positive admissible indices at every
+positive input, and \eqref{eq:cubic} for every such sequence at $n>2$.
+This covers the existence and cubic-formula assertions of
+Theorem~\ref{thm:cubic}, not its general integer-target extension.
+Lemma~\ref{lem:integer} and Corollaries~\ref{cor:jumps}--\ref{cor:tetrahedral}
+have the written proofs above. The accompanying standard-library
+Python program supplies separate exact finite checks of the formulas,
+inversion brackets, jump criteria and quoted OEIS comparisons;
+its output specifies the ranges. These finite checks are distinct
+from the statements for unbounded indices.
+\end{sloppypar}
+
+\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{.28\linewidth}p{.65\linewidth}@{}}
+\toprule
+Source item & Coverage \\
+\midrule
+\endhead
+A248186, FORMULA & Proved: Oudra's conjecture, Theorem~\ref{thm:cubic}. \\
+Integer-target extension & Not posed; proved: Lemma~\ref{lem:integer} and the general reciprocal threshold in Theorem~\ref{thm:cubic}. \\
+A248186, COMMENT & Proved: zero--one increments and partition, Corollary~\ref{cor:jumps}. \\
+A248187/188, NAME & Derived: exact jumps and densities, Corollary~\ref{cor:jumps}; plateaus are their complement. \\
+A248187/188, example & Refuted-and-corrected: complement-name assertion; overlap at $4$, corrected pair stated above. \\
+A248188, COMMENT & Confirmed on the stated finite range $1$--$655$ and at $656$; the universal Beatty equality is not asserted in the source and fails at $656$. \\
+A248188/A059539 & Not posed; proved: universal zero--one discrepancy test, Corollary~\ref{cor:beatty}. \\
+A248183, FORMULA & Proved: Oudra's conjecture, Corollary~\ref{cor:quadratic}. \\
+A248183, COMMENT; A248184/185,\newline NAME & Proved: quadratic partition; derived jump formula and densities, Corollary~\ref{cor:quadratic}. \\
+A248184, COMMENT & Refuted-and-corrected: the nonempty jump set is not its own complement; corrected pair stated above. \\
+A056556, FORMULA & Reproved: Oudra's 2022 formula and Wu's 2024 integer-root alternative; related published treatment Wu (2025), Corollary~\ref{cor:tetrahedral}. \\
+A074279, FORMULA & Prior proof cited: Wu (preprint, 2024; journal, 2025), Section 4; no additional claim here. \\
+A248189, COMMENT & Not covered: divisibility existence conjecture. \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\begin{thebibliography}{10}
+\bibitem{cubic} C.~Kimberling, OEIS A248186, revision 18
+(October 29, 2023), NAME, COMMENT and FORMULA; conjecture by
+R.~Oudra (October 6, 2023).
+\url{https://oeis.org/A248186/internal}.
+\bibitem{plateaus} C.~Kimberling, OEIS A248187, revision 4
+(October 6, 2014), NAME and example. \url{https://oeis.org/A248187}.
+\bibitem{jumps} C.~Kimberling, OEIS A248188, revision 5
+(October 6, 2014), NAME and COMMENT. \url{https://oeis.org/A248188}.
+\bibitem{beatty} OEIS A059539, revision 35 (May 30, 2026), NAME.
+\url{https://oeis.org/A059539}.
+\bibitem{quadratic} C.~Kimberling, OEIS A248183, revision 19
+(November 11, 2024), FORMULA; conjecture by R.~Oudra
+(September 6, 2023). \url{https://oeis.org/A248183}.
+\bibitem{quadraticpositions} C.~Kimberling, OEIS A248184 and A248185,
+revision 4 of each (October 6, 2014), NAME and examples.
+\url{https://oeis.org/A248184}; \url{https://oeis.org/A248185}.
+\bibitem{tetrahedral} H.~Bottomley, OEIS A056556, revision 52
+(November 9, 2025), FORMULA; contributions by R.~Oudra
+(2021, 2022) and C.~W.~Wu (2024). \url{https://oeis.org/A056556}.
+\bibitem{wu} C.~W.~Wu, Algorithms for Complementary Sequences,
+\emph{Integers} \textbf{25} (2025), A95, 26 pp., published November 5, 2025.
+\url{https://doi.org/10.5281/zenodo.17535229}.
+Preprint: \url{https://arxiv.org/abs/2409.05844}; see Section 4.
+\bibitem{squareblocks} J.~Perry, OEIS A074279, revision 85
+(November 7, 2025), FORMULA; contributions by R.~Oudra (2023)
+and C.~W.~Wu (2024). \url{https://oeis.org/A074279}.
+\bibitem{unrelated} Z.-W.~Sun, OEIS A248189, revision 7
+(October 3, 2014), NAME and COMMENT. \url{https://oeis.org/A248189}.
+\end{thebibliography}
+\noindent\small\textcopyright\ 2026 Haobo Ma and Wenlin Zhang.
+Licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).
+\end{document}

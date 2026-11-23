@@ -1,0 +1,71 @@
+{
+  "A248188_comparison": {
+    "agreements": 655,
+    "comparison": 949,
+    "exception_j": 656,
+    "jump": 948
+  },
+  "Beatty_discrepancy_criterion": {
+    "first_j": 1,
+    "last_j": 10000
+  },
+  "arithmetic": "integer inequalities and rational root enclosures; no floating point",
+  "boundary_values": {
+    "a_1_to_4": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "d_1": 1
+  },
+  "coverage": "Finite checks support the written proofs; unbounded conclusions follow from the note.",
+  "cubic_formula": {
+    "cases": 9998,
+    "first_n": 3,
+    "last_n": 10000
+  },
+  "general_residual_threshold": {
+    "first_M": 1,
+    "last_M": 10000
+  },
+  "integer_target_inversion": {
+    "first_M": 1,
+    "last_M": 10000
+  },
+  "jump_formula": {
+    "first_j": 1,
+    "last_j": 1000
+  },
+  "quadratic_formula": {
+    "cases": 9999,
+    "first_n": 2,
+    "last_n": 10000
+  },
+  "quadratic_jump_formula": {
+    "first_j": 1,
+    "last_j": 1000
+  },
+  "quadratic_zero_one_increments": {
+    "first_n": 1,
+    "last_n": 10000
+  },
+  "status": "ALL_CHECKS_OK",
+  "telescoping": {
+    "degrees": [
+      2,
+      3
+    ],
+    "first_k": 1,
+    "last_k": 100
+  },
+  "tetrahedral_formulas": {
+    "T_0": 0,
+    "first_N": 1,
+    "last_N": 10000
+  },
+  "zero_one_increments": {
+    "first_n": 1,
+    "last_n": 10000
+  }
+}
