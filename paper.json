@@ -31,6 +31,7 @@
     "concept_doi": "10.5281/zenodo.24410612",
     "current_version": 2,
     "doi": "10.5281/zenodo.24410613",
+    "kind": "note",
     "lean_source": {
       "revision": "f1c20718fca66e9ef0a4cb5f4f6a9a55badd1ab5",
       "url": "https://github.com/the-omega-institute/trureturing/blob/f1c20718fca66e9ef0a4cb5f4f6a9a55badd1ab5/D5/S3/ArithSums/OudraA248186CubicFloor.lean"
@@ -55,10 +56,12 @@
     "title": "Oudra's cubic and quadratic floor conjectures and an alternative proof of Wu's tetrahedral formula",
     "versions": [
       {
+        "changelog": null,
         "previous_version": null,
         "published_on": "2026-11-23T05:20:55.021197564Z",
         "revision": "2",
-        "version": 2
+        "version": 2,
+        "version_label": null
       }
     ],
     "work": "oudra-a248186-cubic-floor"
